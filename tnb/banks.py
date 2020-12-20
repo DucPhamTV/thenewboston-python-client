@@ -1,3 +1,4 @@
+from thenewboston.utils.signed_requests import generate_signed_request
 from typing import Union
 
 from tnb.base_client import BaseClient
@@ -213,7 +214,7 @@ class Bank(BaseClient):
         return self.post("/confirmation_blocks", body=body)
 
     def connection_requests(
-        self, address: str, port: int, protocol: str, node_id: str, signature: str
+        self, address: str, port: int, protocol: str, node_id: str, signing_key: str
     ) -> Union[dict, list]:
         """
         Send a connection request to the Bank
@@ -222,22 +223,20 @@ class Bank(BaseClient):
         :param port: The port of requesting node
         :param protocol: The protocol of requesting node
         :param node_id: The Node Identifier of the requesting node
-        :param signature: The signature is signed by requesting Node Identifier
-            Signing Key
+        :param signing_key: The key to create the signature
 
         Return response as Python object
         """
-        body = {
-            "message": {
+        signed_request = generate_signed_request(
+            data={
                 "ip_address": address,
                 "port": port,
                 "protocol": protocol,
-            },
-            "node_identifier": node_id,
-            "signature": signature,
-        }
+            }
+            nid_signing_key=signing_key,
+        )
 
-        return self.post("/connection_requests", body=body)
+        return self.post("/connection_requests", body=signed_request)
 
     def post_invalid_block(
         self,
