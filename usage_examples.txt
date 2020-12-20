@@ -1,0 +1,18 @@
+>>> from tnb.banks import Bank
+>>> mybank = Bank(address="192.168.1.3", port=8004)
+>>> mybank.clean(signing_key='c71e496b66df1efdacc2fc4fab5c9c1a5b0551ebb56ea2a4987378e7ff6e1ed5')
+{'clean_last_completed': None, 'clean_status': 'cleaning', 'ip_address': '192.168.1.3', 'port': 8004, 'protocol': 'http'}
+>>> mybank.crawl(signing_key='c71e496b66df1efdacc2fc4fab5c9c1a5b0551ebb56ea2a4987378e7ff6e1ed5')
+{'crawl_last_completed': None, 'crawl_status': 'crawling', 'ip_address': '192.168.1.3', 'port': 8004, 'protocol': 'http'}
+>>> from tnb.validators import Validator
+>>> myValidator = Validator(address='192.168.1.3', port=8002)
+>>> myValidator.clean(signing_key="4a0a0ad6a33df956ae450884a1cc606d8ac7698c34bbc771c7ca87ba9adca2a5")
+{'clean_last_completed': None, 'clean_status': 'cleaning', 'ip_address': '192.168.1.3', 'port': 8002, 'protocol': 'http'}
+>>> myValidator.crawl(signing_key="4a0a0ad6a33df956ae450884a1cc606d8ac7698c34bbc771c7ca87ba9adca2a5")
+{'crawl_last_completed': None, 'crawl_status': 'crawling', 'ip_address': '192.168.1.3', 'port': 8002, 'protocol': 'http'}
+>>> myValidator.fetch_banks()
+{'count': 1, 'next': None, 'previous': None, 'results': [{'account_number': '7bb9787dec7ee1978b43c182e554e5e5e62627e80f3fa6681e7f983930dbb1be', 'ip_address': '192.168.1.3', 'node_identifier': 'c292c7c13c46e0abcb6c84b1f35a24efb5dd4605445a2864754e02f174b2a192', 'port': 8004, 'protocol': 'http', 'version': 'v1.0', 'default_transaction_fee': 1, 'confirmation_expiration': None, 'trust': '0.00'}]}
+>>> mybank.fetch_validators()
+{'count': 2, 'next': None, 'previous': None, 'results': [{'account_number': '6e3232cb30bdcb79494ca9c1993dfbe6845a2f079438a7d56502f94fbd64bb2b', 'ip_address': '192.168.1.3', 'node_identifier': '1488799e04b00951e4c10f20a15e13912aee504b831a7a1cd19d4b1db7ff9266', 'port': 8001, 'protocol': 'http', 'version': 'v1.0', 'default_transaction_fee': 1, 'root_account_file': 'http://192.168.1.3:8001/media/root_account_file.json', 'root_account_file_hash': 'abca855a90d24da5bd823155710ae2622081f098155d9eedcfff84c68e2cdf2a', 'seed_block_identifier': '', 'daily_confirmation_rate': None, 'trust': '100.00'}, {'account_number': '5e76c46de6256db3987de8d78ef4af8d792979a95fdd1094bcad3e00c82d0e08', 'ip_address': '192.168.1.3', 'node_identifier': 'eade0f962092e2086ede39c351e0f9ce8d5fc0b040eb90dfb83010b433d5b1af', 'port': 8002, 'protocol': 'http', 'version': 'v1.0', 'default_transaction_fee': 1, 'root_account_file': 'http://192.168.1.3:8002/media/root_account_file.json', 'root_account_file_hash': 'abca855a90d24da5bd823155710ae2622081f098155d9eedcfff84c68e2cdf2a', 'seed_block_identifier': '', 'daily_confirmation_rate': 10, 'trust': '0.00'}]}
+>>> 
+

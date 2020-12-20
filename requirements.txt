@@ -4,10 +4,11 @@ pytest-xdist==2.1.0
 pytest==6.1.2
 setuptools==50.3.2
 wheel==0.35.1
-requests==2.24.0
+requests==2.25.0
 requests-mock==1.8.0
 black==20.8b1
 pytest-black==0.3.12
 pytest-flake8==1.0.6
 pytest-cov==2.10.1
 Sphinx==3.3.1
+thenewboston==0.0.30

@@ -1,3 +1,5 @@
+from nacl.encoding import HexEncoder
+from nacl.signing import SigningKey
 from thenewboston.utils.signed_requests import generate_signed_request
 from typing import Union
 
@@ -74,11 +76,31 @@ class Validator(BaseClient):
                 "ip_address": address,
                 "port": port,
                 "protocol": protocol,
-            }
-            nid_signing_key=signing_key,
+            },
+            nid_signing_key=SigningKey(signing_key, encoder=HexEncoder),
         )
 
         return self.post("/connection_requests", body=signed_request)
+
+    def clean(self, signing_key: str, action: str = 'start') -> Union[dict, list]:
+        signed_request = generate_signed_request(
+            data={
+                "clean": action,
+            },
+            nid_signing_key=SigningKey(signing_key, encoder=HexEncoder),
+        )
+
+        return self.post("/clean", body=signed_request)
+
+    def crawl(self, signing_key: str, action: str = 'start') -> Union[dict, list]:
+        signed_request = generate_signed_request(
+            data={
+                "crawl": action,
+            },
+            nid_signing_key=SigningKey(signing_key, encoder=HexEncoder),
+        )
+
+        return self.post("/crawl", body=signed_request)
 
     def fetch_banks(self, offset: int = 0, limit: int = 50) -> Union[dict, list]:
         """
